@@ -7,13 +7,13 @@ import Breadcrumb from "../../components/Breadcrumb";
 import ButtonNew from "./ButtonNew";
 
 export default () => {
+  const ROUTE = "product";
+  const [data, setData] = useState([{}]);
+  const [rowToEdit, setRowToEdit] = useState({});
+
   useEffect(() => {
     fetchData();
   }, []);
-
-  const [data, setData] = useState([{}]);
-
-  const [rowToEdit, setRowToEdit] = useState({});
 
   const handleEditRow = (idx: any) => {
     let row: any = data.find((row: any) => row.id === idx);
@@ -44,7 +44,7 @@ export default () => {
   // CRUD
   const create = async (newRow: any) => {
     try {
-      await post(`http://localhost/product`, newRow);
+      await post(`${ROUTE}`, newRow);
       console.log("Item criado com sucesso!");
     } catch (error) {
       console.error(error);
@@ -53,7 +53,7 @@ export default () => {
 
   const fetchData = async () => {
     try {
-      const response = await get(`http://localhost/product`);
+      const response = await get(`${ROUTE}`);
       setData(response);
     } catch (error) {
       console.error(error);
@@ -62,7 +62,7 @@ export default () => {
 
   const update = async (newRow: any) => {
     try {
-      await put(`http://localhost/product/${newRow.id}`, newRow);
+      await put(`${ROUTE}/${newRow.id}`, newRow);
       console.log("Dados atualizados com sucesso!");
     } catch (error) {
       console.error(error);
@@ -71,7 +71,7 @@ export default () => {
 
   const removeItem = async (itemId: any) => {
     try {
-      await remove(`http://localhost/product/${itemId}`);
+      await remove(`${ROUTE}/${itemId}`);
       console.log("Item deletado com sucesso!");
     } catch (error) {
       console.error(error);
