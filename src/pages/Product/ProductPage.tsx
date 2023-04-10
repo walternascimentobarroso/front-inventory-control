@@ -1,5 +1,5 @@
 import Table from "./Table";
-import { get } from "../../services/api";
+import { get, post } from "../../services/api";
 import Title from "../../components/Title";
 import { useEffect, useState } from "react";
 import Template from "../../components/Template";
@@ -8,13 +8,7 @@ import ButtonNew from "./ButtonNew";
 
 export default () => {
   useEffect(() => {
-    get("http://localhost/product")
-      .then((response: any) => {
-        setData(response);
-      })
-      .catch((error: any) => {
-        console.error(error);
-      });
+    fetchData();
   }, []);
 
   const [data, setData] = useState([{}]);
@@ -30,16 +24,41 @@ export default () => {
     setData(data.filter((row: any) => row.id !== targetIndex));
 
   const handleSubmit = (newRow: any) => {
-    "barcode" in rowToEdit
-      ? setData(
-          data.map((row: any) => {
-            if (row.id !== newRow.id) return row;
+    if ("barcode" in rowToEdit) {
+      setData(
+        data.map((row: any) => {
+          if (row.id !== newRow.id) return row;
 
-            return newRow;
-          })
-        )
-      : setData([...data, newRow]);
+          return newRow;
+        })
+      );
+    } else {
+      setData([...data, newRow]);
+      create(newRow);
+    }
   };
+
+  // CRUD
+  const create = async (newRow: any) => {
+    try {
+      await post(`http://localhost/product`, newRow);
+      console.log("Item criado com sucesso!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await get(`http://localhost/product`);
+      setData(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const update = () => {};
+  const remove = () => {};
 
   return (
     <Template>

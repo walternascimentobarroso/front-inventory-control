@@ -48,7 +48,7 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
 
   const handleSubmit = (e: any) => {
-    if (!validateForm) return;
+    if (!validateForm()) return;
     onActionSubmit(formState);
     closeModal();
   };

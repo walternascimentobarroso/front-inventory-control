@@ -81,7 +81,7 @@ const AsideMenu = () => {
               </li>
             </ul>
             <div className="space-y-2 pt-2">
-              <Link
+              {/* <Link
                 to="/faq"
                 className={`custom--link rounded-lg flex items-center p-2 ${
                   activeLink === "/faq" &&
@@ -103,7 +103,7 @@ const AsideMenu = () => {
                 <span className="ml-3 flex-1 whitespace-nowrap">
                   Components
                 </span>
-              </Link>
+              </Link> */}
               <button
                 onClick={() => [signOut(), navigate("/")]}
                 className="custom--link rounded-lg flex items-center p-2 text-left w-full"
