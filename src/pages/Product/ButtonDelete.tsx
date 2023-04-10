@@ -10,7 +10,7 @@ export default ({ id, description, deleteAction }: any) => {
         Delete
       </Button>
       <ModalWrapper title="Delete Product">
-        <p>Are you sure you want remover?</p>
+        <p>Are you sure you want remove?</p>
         <div className="my-4">
           <strong>{description}</strong>
         </div>

@@ -48,7 +48,7 @@ export default ({
 
               <ButtonDelete
                 id={record.id}
-                description={record.name}
+                description={record.description}
                 deleteAction={deleteRow}
               />
             </td>

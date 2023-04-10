@@ -1,5 +1,5 @@
 import Table from "./Table";
-import { get, post } from "../../services/api";
+import { get, post, remove } from "../../services/api";
 import Title from "../../components/Title";
 import { useEffect, useState } from "react";
 import Template from "../../components/Template";
@@ -20,8 +20,10 @@ export default () => {
     setRowToEdit(row);
   };
 
-  const handleDeleteRow = (targetIndex: any) =>
+  const handleDeleteRow = (targetIndex: any) => {
     setData(data.filter((row: any) => row.id !== targetIndex));
+    removeItem(targetIndex);
+  };
 
   const handleSubmit = (newRow: any) => {
     if ("barcode" in rowToEdit) {
@@ -57,8 +59,12 @@ export default () => {
     }
   };
 
-  const update = () => {};
-  const remove = () => {};
+  const update = async () => {};
+
+  const removeItem = async (itemId: any) => {
+    await remove(`http://localhost/product/${itemId}`); // Substitua a URL pela sua API correta
+    console.log("Item deletado com sucesso!");
+  };
 
   return (
     <Template>
