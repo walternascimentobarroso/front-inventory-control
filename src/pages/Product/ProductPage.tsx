@@ -1,5 +1,5 @@
 import Table from "./Table";
-import { get, post, remove } from "../../services/api";
+import { get, post, put, remove } from "../../services/api";
 import Title from "../../components/Title";
 import { useEffect, useState } from "react";
 import Template from "../../components/Template";
@@ -34,6 +34,7 @@ export default () => {
           return newRow;
         })
       );
+      update(newRow);
     } else {
       setData([...data, newRow]);
       create(newRow);
@@ -59,11 +60,22 @@ export default () => {
     }
   };
 
-  const update = async () => {};
+  const update = async (newRow: any) => {
+    try {
+      await put(`http://localhost/product/${newRow.id}`, newRow);
+      console.log("Dados atualizados com sucesso!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const removeItem = async (itemId: any) => {
-    await remove(`http://localhost/product/${itemId}`); // Substitua a URL pela sua API correta
-    console.log("Item deletado com sucesso!");
+    try {
+      await remove(`http://localhost/product/${itemId}`);
+      console.log("Item deletado com sucesso!");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
