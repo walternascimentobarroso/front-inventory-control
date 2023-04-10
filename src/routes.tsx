@@ -8,6 +8,7 @@ import FaqPage from "./pages/Faq/FaqPage";
 import useAuth from "./hooks/useAuth";
 import Error404Page from "./pages/Error/Error404Page";
 import ProfilePage from "./pages/Profile/ProfilePage";
+import ProductPage from "./pages/Product/ProductPage";
 
 const Private = ({ Item }: any) => {
   const { signed } = useAuth();
@@ -33,6 +34,11 @@ const routes: any[] = [
     path: "/user",
     exact: true,
     element: <Private Item={UserPage} />,
+  },
+  {
+    path: "/product",
+    exact: true,
+    element: <Private Item={ProductPage} />,
   },
   {
     path: "/faq",
