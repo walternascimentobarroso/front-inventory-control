@@ -16,6 +16,18 @@ First clone the project:
 git clone https://github.com/walternascimentobarroso/react-tailwind.git
 ```
 
+After that just install all dependencies
+
+```
+yarn
+```
+
+and run the project
+
+```
+yarn dev
+```
+
 </details>
 
 <details open>

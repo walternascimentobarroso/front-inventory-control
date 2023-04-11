@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Alert from "../../components/Alert";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import ProfilePicture from "../../components/ProfilePicture";
+import CustomSelect from "../../components/CustomSelect";
 
 export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
   const [formState, setFormState] = useState({
@@ -28,6 +28,17 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
   );
 
   const [errors, setErrors] = useState("");
+
+  const options = [
+    { value: "option1", label: "Opção 1" },
+    { value: "option2", label: "Opção 2" },
+    { value: "option3", label: "Opção 3" },
+  ];
+
+  const handleSelect = (value: string) => {
+    console.log("Opção selecionada:", value);
+    // Faça algo com o valor selecionado, como atualizar o estado do componente pai
+  };
 
   const validateForm = () => {
     setErrors("");
@@ -96,6 +107,13 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
           name={"tax"}
           value={formState?.tax || ""}
           onChange={handleChange}
+        />
+
+        <CustomSelect
+          label={"Category"}
+          name={"category"}
+          options={options}
+          onSelect={handleSelect}
         />
 
         <Input
