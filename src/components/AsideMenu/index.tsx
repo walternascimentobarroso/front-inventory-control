@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {
   MdBarcodeReader,
+  MdCategory,
   MdGroup,
   MdLogout,
   MdOutlineFilterVintage,
@@ -76,6 +77,18 @@ const AsideMenu = () => {
                   <MdBarcodeReader className="w-6 h-6 custom--svg" />
                   <span className="ml-3 flex-1 whitespace-nowrap">
                     Products
+                  </span>
+                </Link>
+                <Link
+                  to="/category"
+                  className={`custom--link rounded-lg flex items-center p-2 ${
+                    activeLink === "/category" &&
+                    "text-gray-900 bg-gray-200 dark:bg-gray-600 dark:text-white"
+                  }`}
+                >
+                  <MdCategory className="w-6 h-6 custom--svg" />
+                  <span className="ml-3 flex-1 whitespace-nowrap">
+                    Category
                   </span>
                 </Link>
               </li>

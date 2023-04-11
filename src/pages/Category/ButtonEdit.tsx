@@ -1,0 +1,28 @@
+import FormUser from "./Form";
+import Button from "../../components/Button";
+import { useModal } from "../../hooks/useModal";
+
+export default ({ id, onActionSubmit, editRow, defaultValue }: any) => {
+  const { openModal, closeModal, ModalWrapper } = useModal();
+
+  return (
+    <>
+      <Button
+        customClass="custom--btn-warning mr-4"
+        onClick={() => {
+          editRow(id);
+          openModal();
+        }}
+      >
+        Edit
+      </Button>
+      <ModalWrapper title="Edit Category">
+        <FormUser
+          onActionSubmit={onActionSubmit}
+          defaultValue={defaultValue}
+          closeModal={closeModal}
+        />
+      </ModalWrapper>
+    </>
+  );
+};

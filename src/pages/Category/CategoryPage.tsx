@@ -7,7 +7,7 @@ import Breadcrumb from "../../components/Breadcrumb";
 import ButtonNew from "./ButtonNew";
 
 export default () => {
-  const ROUTE = "product";
+  const ROUTE = "category";
   const [data, setData] = useState([{}]);
   const [rowToEdit, setRowToEdit] = useState({});
 
@@ -87,13 +87,13 @@ export default () => {
             href: "/home",
           },
           {
-            label: "Product",
+            label: "Category",
             href: "",
           },
         ]}
       />
 
-      <Title>Product</Title>
+      <Title>Category</Title>
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
