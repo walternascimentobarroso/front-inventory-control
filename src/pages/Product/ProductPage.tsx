@@ -28,7 +28,6 @@ export default () => {
   };
 
   const handleSubmit = (newRow: any) => {
-    console.log(rowToEdit);
     if ("id" in rowToEdit) {
       setData(
         data.map((row: any) => {

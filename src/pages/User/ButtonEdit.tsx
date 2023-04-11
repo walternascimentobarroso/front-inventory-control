@@ -1,4 +1,4 @@
-import FormUser from "./FormUser";
+import FormUser from "./Form";
 import Button from "../../components/Button";
 import { useModal } from "../../hooks/useModal";
 

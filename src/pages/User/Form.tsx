@@ -1,35 +1,42 @@
 import { useEffect, useState } from "react";
+
 import Alert from "../../components/Alert";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import ProfilePicture from "../../components/ProfilePicture";
+import CustomSelect from "../../components/CustomSelect";
+
+import { get } from "../../services/api";
 
 export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
-  const [formState, setFormState] = useState({
+  const initData = {
     name: "",
-    lastName: "",
     email: "",
-    password: "",
-    role: "",
-    status: "",
-  });
-
-  useEffect(
-    () =>
-      setFormState(
-        defaultValue || {
-          name: "",
-          lastName: "",
-          email: "",
-          password: "",
-          role: "",
-          status: "",
-        }
-      ),
-    [defaultValue]
-  );
-
+  };
+  const [formState, setFormState] = useState(initData);
   const [errors, setErrors] = useState("");
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => setFormState(defaultValue || initData), [defaultValue]);
+
+  useEffect(() => {
+    loadOptions();
+  }, []);
+
+  const loadOptions = async () => {
+    try {
+      const response = await get(`category`);
+      setOptions(
+        response.map((item: any) => {
+          return {
+            value: item.id,
+            label: item.description,
+          };
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const validateForm = () => {
     setErrors("");
@@ -50,6 +57,7 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
 
   const handleSubmit = (e: any) => {
+    if (!validateForm()) return;
     onActionSubmit(formState);
     closeModal();
   };
@@ -65,10 +73,6 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
       )}
 
       <form className="p-1 bg-white dark:bg-gray-800">
-        <div className="flex justify-center">
-          <ProfilePicture alt="Profile picture" />
-        </div>
-
         <Input
           label={"Name"}
           placeholder={"Name"}
@@ -78,44 +82,11 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
         />
 
         <Input
-          label={"Last Name"}
-          placeholder={"Last Name"}
-          name={"lastName"}
-          value={formState?.lastName || ""}
-          onChange={handleChange}
-        />
-
-        <Input
           label={"Email"}
-          type={"email"}
           placeholder={"Email"}
+          type={"email"}
           name={"email"}
           value={formState?.email || ""}
-          onChange={handleChange}
-        />
-
-        <Input
-          label={"Password"}
-          type={"password"}
-          placeholder={"Password"}
-          name={"password"}
-          value={formState?.password || ""}
-          onChange={handleChange}
-        />
-
-        <Input
-          label={"Role"}
-          placeholder={"Role"}
-          name={"role"}
-          value={formState?.role || ""}
-          onChange={handleChange}
-        />
-
-        <Input
-          label={"Status"}
-          placeholder={"status"}
-          name={"status"}
-          value={formState?.status || ""}
           onChange={handleChange}
         />
 

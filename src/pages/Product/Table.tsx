@@ -36,7 +36,7 @@ export default ({
               {record.description}
             </td>
             <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {record.category}
+              {record.value}
             </td>
             <td className="px-6 py-4">
               <ButtonEdit

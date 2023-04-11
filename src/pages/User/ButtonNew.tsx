@@ -1,4 +1,4 @@
-import FormUser from "./FormUser";
+import FormUser from "./Form";
 import Button from "../../components/Button";
 import { useModal } from "../../hooks/useModal";
 
@@ -9,13 +9,13 @@ export default ({ onActionSubmit, cleanEditData, defaultValue }: any) => {
     <>
       <Button
         onClick={() => {
-          cleanEditData;
+          cleanEditData();
           openModal();
         }}
       >
         New
       </Button>
-      <ModalWrapper title="New User">
+      <ModalWrapper title="New Product">
         <FormUser
           onActionSubmit={onActionSubmit}
           defaultValue={defaultValue}

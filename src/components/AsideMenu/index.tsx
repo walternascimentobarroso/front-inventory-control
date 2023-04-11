@@ -91,6 +91,16 @@ const AsideMenu = () => {
                     Category
                   </span>
                 </Link>
+                <Link
+                  to="/user"
+                  className={`custom--link rounded-lg flex items-center p-2 ${
+                    activeLink === "/user" &&
+                    "text-gray-900 bg-gray-200 dark:bg-gray-600 dark:text-white"
+                  }`}
+                >
+                  <MdGroup className="w-6 h-6 custom--svg" />
+                  <span className="ml-3 flex-1 whitespace-nowrap">Users</span>
+                </Link>
               </li>
             </ul>
             <div className="space-y-2 pt-2">

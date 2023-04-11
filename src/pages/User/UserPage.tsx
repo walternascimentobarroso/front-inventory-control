@@ -1,61 +1,83 @@
-import TableUser from "./TableUser";
-import NewUserForm from "./NewUserForm";
+import { useEffect, useState } from "react";
+
+import Table from "./Table";
+import ButtonNew from "./ButtonNew";
+import Title from "../../components/Title";
 import Template from "../../components/Template";
 import Breadcrumb from "../../components/Breadcrumb";
-import Title from "../../components/Title";
-import { useState } from "react";
+
+import { get, post, put, remove } from "../../services/api";
 
 export default () => {
-  const [data, setData] = useState([
-    {
-      id: 1,
-      name: "Apple MacBook Pro 16'",
-      photo:
-        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-      email: "est.asd@gmail.com",
-      role: "Admin",
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Apple MacBook Pro 17'",
-      photo:
-        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-      email: "est.asd@gmail.com",
-      role: "Admin",
-      status: "Inactive",
-    },
-    {
-      id: 3,
-      name: "Apple MacBook Pro 18'",
-      photo:
-        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
-      email: "est.asd@gmail.com",
-      role: "Guest",
-      status: "Active",
-    },
-  ]);
-
+  const ROUTE = "user";
+  const [data, setData] = useState([{}]);
   const [rowToEdit, setRowToEdit] = useState({});
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleEditRow = (idx: any) => {
     let row: any = data.find((row: any) => row.id === idx);
     setRowToEdit(row);
   };
 
-  const handleDeleteRow = (targetIndex: any) =>
+  const handleDeleteRow = (targetIndex: any) => {
     setData(data.filter((row: any) => row.id !== targetIndex));
+    removeItem(targetIndex);
+  };
 
   const handleSubmit = (newRow: any) => {
-    "name" in rowToEdit
-      ? setData(
-          data.map((row) => {
-            if (row.id !== newRow.id) return row;
+    if ("id" in rowToEdit) {
+      setData(
+        data.map((row: any) => {
+          if (row.id !== newRow.id) return row;
 
-            return newRow;
-          })
-        )
-      : setData([...data, newRow]);
+          return newRow;
+        })
+      );
+      update(newRow);
+    } else {
+      setData([...data, newRow]);
+      create(newRow);
+    }
+  };
+
+  // CRUD
+  const create = async (newRow: any) => {
+    try {
+      await post(`${ROUTE}`, newRow);
+      console.log("Item criado com sucesso!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await get(`${ROUTE}`);
+      setData(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const update = async (newRow: any) => {
+    try {
+      await put(`${ROUTE}/${newRow.id}`, newRow);
+      console.log("Dados atualizados com sucesso!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeItem = async (itemId: any) => {
+    try {
+      await remove(`${ROUTE}/${itemId}`);
+      console.log("Item deletado com sucesso!");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -73,7 +95,7 @@ export default () => {
         ]}
       />
 
-      <Title>Users</Title>
+      <Title>User</Title>
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -105,12 +127,12 @@ export default () => {
               />
             </div>
 
-            <NewUserForm
+            <ButtonNew
               onActionSubmit={handleSubmit}
               cleanEditData={() => setRowToEdit({})}
             />
           </div>
-          <TableUser
+          <Table
             data={data}
             deleteRow={handleDeleteRow}
             onActionSubmit={handleSubmit}

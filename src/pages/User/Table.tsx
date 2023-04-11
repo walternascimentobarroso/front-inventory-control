@@ -1,5 +1,5 @@
-import EditUser from "./EditUser";
-import DeleteUser from "./DeleteUser";
+import ButtonEdit from "./ButtonEdit";
+import ButtonDelete from "./ButtonDelete";
 
 export default ({
   data,
@@ -8,11 +8,11 @@ export default ({
   defaultRowValue,
   onActionSubmit,
 }: any) => {
-  const tHeads = ["User", "Role", "Status", "Actions"];
+  const tHeads = ["Name", "Email", "Actions"];
   return (
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-        List of Users
+        List of users
       </caption>
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-500 dark:text-gray-400">
         <tr>
@@ -30,35 +30,22 @@ export default ({
             key={index}
           >
             <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <div className="flex items-center gap-x-2">
-                <img
-                  className="object-cover w-8 h-8 rounded-full"
-                  src={record.photo}
-                  alt="Profile"
-                />
-                <div>
-                  <h2 className="text-sm font-medium text-gray-800 dark:text-white ">
-                    {record.name}
-                  </h2>
-                  <p className="text-xs font-normal text-gray-600 dark:text-gray-400">
-                    {record.email}
-                  </p>
-                </div>
-              </div>
+              {record.name}
             </td>
-            <td className="px-6 py-4">{record.role} </td>
-            <td className="px-6 py-4">{record.status}</td>
+            <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {record.email}
+            </td>
             <td className="px-6 py-4">
-              <EditUser
+              <ButtonEdit
                 id={record.id}
                 onActionSubmit={onActionSubmit}
                 editRow={editRow}
                 defaultValue={defaultRowValue}
               />
 
-              <DeleteUser
+              <ButtonDelete
                 id={record.id}
-                description={record.name}
+                description={record.description}
                 deleteAction={deleteRow}
               />
             </td>
