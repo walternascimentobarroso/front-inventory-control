@@ -1,24 +1,17 @@
+import { useEffect, useState } from "react";
+
 import Alert from "../../components/Alert";
 import Input from "../../components/Input";
-import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 
 export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
-  const [formState, setFormState] = useState({
+  const initData = {
     description: "",
-  });
-
-  useEffect(
-    () =>
-      setFormState(
-        defaultValue || {
-          description: "",
-        }
-      ),
-    [defaultValue]
-  );
-
+  };
+  const [formState, setFormState] = useState(initData);
   const [errors, setErrors] = useState("");
+
+  useEffect(() => setFormState(defaultValue || initData), [defaultValue]);
 
   const validateForm = () => {
     setErrors("");

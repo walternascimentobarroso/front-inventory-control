@@ -1,10 +1,12 @@
-import Table from "./Table";
-import { get, post, put, remove } from "../../services/api";
-import Title from "../../components/Title";
 import { useEffect, useState } from "react";
+
+import Table from "./Table";
+import ButtonNew from "./ButtonNew";
+import Title from "../../components/Title";
 import Template from "../../components/Template";
 import Breadcrumb from "../../components/Breadcrumb";
-import ButtonNew from "./ButtonNew";
+
+import { get, post, put, remove } from "../../services/api";
 
 export default () => {
   const ROUTE = "product";
@@ -26,6 +28,7 @@ export default () => {
   };
 
   const handleSubmit = (newRow: any) => {
+    console.log(rowToEdit);
     if ("id" in rowToEdit) {
       setData(
         data.map((row: any) => {

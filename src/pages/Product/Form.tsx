@@ -1,43 +1,44 @@
 import { useEffect, useState } from "react";
+
 import Alert from "../../components/Alert";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import CustomSelect from "../../components/CustomSelect";
 
+import { get } from "../../services/api";
+
 export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
-  const [formState, setFormState] = useState({
+  const initData = {
     description: "",
     category: "",
     barcode: "",
     value: "",
     tax: "",
-  });
-
-  useEffect(
-    () =>
-      setFormState(
-        defaultValue || {
-          description: "",
-          category: "",
-          barcode: "",
-          value: "",
-          tax: "",
-        }
-      ),
-    [defaultValue]
-  );
-
+  };
+  const [formState, setFormState] = useState(initData);
   const [errors, setErrors] = useState("");
+  const [options, setOptions] = useState([]);
 
-  const options = [
-    { value: "option1", label: "Opção 1" },
-    { value: "option2", label: "Opção 2" },
-    { value: "option3", label: "Opção 3" },
-  ];
+  useEffect(() => setFormState(defaultValue || initData), [defaultValue]);
 
-  const handleSelect = (value: string) => {
-    console.log("Opção selecionada:", value);
-    // Faça algo com o valor selecionado, como atualizar o estado do componente pai
+  useEffect(() => {
+    loadOptions();
+  }, []);
+
+  const loadOptions = async () => {
+    try {
+      const response = await get(`category`);
+      setOptions(
+        response.map((item: any) => {
+          return {
+            value: item.id,
+            label: item.description,
+          };
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const validateForm = () => {
@@ -113,16 +114,8 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
           label={"Category"}
           name={"category"}
           options={options}
-          onSelect={handleSelect}
-        />
-
-        <Input
-          label={"category"}
-          type={"number"}
-          placeholder={"category"}
-          name={"category"}
-          value={formState?.category || ""}
-          onChange={handleChange}
+          defaultValue={defaultValue?.category}
+          onSelect={handleChange}
         />
 
         <Button customClass="w-full" onClick={handleSubmit}>

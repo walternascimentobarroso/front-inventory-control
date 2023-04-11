@@ -9,7 +9,7 @@ export default ({ onActionSubmit, cleanEditData, defaultValue }: any) => {
     <>
       <Button
         onClick={() => {
-          cleanEditData;
+          cleanEditData();
           openModal();
         }}
       >

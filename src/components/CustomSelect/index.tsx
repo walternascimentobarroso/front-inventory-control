@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 interface SelectOption {
@@ -10,21 +10,25 @@ interface SelectProps {
   name: string;
   label: string;
   options: SelectOption[];
-  onSelect: (value: string) => void;
+  defaultValue: string;
+  onSelect: any;
 }
 
 const CustomSelect: React.FC<SelectProps> = ({
   name,
   label,
   options,
+  defaultValue,
   onSelect,
 }) => {
   const [selectedValue, setSelectedValue] = useState("");
 
+  useEffect(() => setSelectedValue(defaultValue), []);
+
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     setSelectedValue(value);
-    onSelect(value);
+    onSelect(event);
   };
 
   return (
@@ -37,6 +41,8 @@ const CustomSelect: React.FC<SelectProps> = ({
       </label>
       <div className="relative">
         <select
+          id={name}
+          name={name}
           value={selectedValue}
           onChange={handleSelectChange}
           className={`bg-white dark:bg-gray-700 border border-gray-300 text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full px-3 py-2 mb-3 appearance-none
@@ -47,8 +53,8 @@ const CustomSelect: React.FC<SelectProps> = ({
           <option value="" disabled hidden className="text-gray-400">
             Selecione uma opção
           </option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
+          {options.map((option, index) => (
+            <option key={index} value={option.value}>
               {option.label}
             </option>
           ))}
