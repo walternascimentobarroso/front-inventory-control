@@ -10,6 +10,7 @@ import Error404Page from "./pages/Error/Error404Page";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import ProductPage from "./pages/Product/ProductPage";
 import CategoryPage from "./pages/Category/CategoryPage";
+import SalePage from "./pages/Sale/SalePage";
 
 const Private = ({ Item }: any) => {
   const { signed } = useAuth();
@@ -30,6 +31,11 @@ const routes: any[] = [
     path: "/profile",
     exact: true,
     element: <Private Item={ProfilePage} />,
+  },
+  {
+    path: "/sale",
+    exact: true,
+    element: <Private Item={SalePage} />,
   },
   {
     path: "/user",

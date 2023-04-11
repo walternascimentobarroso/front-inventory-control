@@ -6,8 +6,8 @@ import Button from "../../components/Button";
 
 export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
   const initData = {
-    name: "",
-    email: "",
+    items: "",
+    total: "",
   };
   const [formState, setFormState] = useState(initData);
   const [errors, setErrors] = useState("");
@@ -50,19 +50,19 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
 
       <form className="p-1 bg-white dark:bg-gray-800">
         <Input
-          label={"Name"}
-          placeholder={"Name"}
-          name={"name"}
-          value={formState?.name || ""}
+          label={"items"}
+          placeholder={"items"}
+          name={"items"}
+          value={formState?.items || ""}
           onChange={handleChange}
         />
 
         <Input
-          label={"Email"}
-          placeholder={"Email"}
-          type={"email"}
-          name={"email"}
-          value={formState?.email || ""}
+          label={"Total"}
+          placeholder={"Total"}
+          type={"number"}
+          name={"total"}
+          value={formState?.total || ""}
           onChange={handleChange}
         />
 

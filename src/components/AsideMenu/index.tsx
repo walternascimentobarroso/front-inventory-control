@@ -5,10 +5,12 @@ import {
   MdBarcodeReader,
   MdCategory,
   MdGroup,
+  MdInsertChart,
   MdLogout,
   MdOutlineFilterVintage,
   MdOutlineQuestionMark,
   MdPieChart,
+  MdPointOfSale,
 } from "react-icons/md";
 
 const AsideMenu = () => {
@@ -67,6 +69,26 @@ const AsideMenu = () => {
                 </Link>
               </li>
               <li>
+                <Link
+                  to="/sell"
+                  className={`custom--link rounded-lg flex items-center p-2 ${
+                    activeLink === "/sell" &&
+                    "text-gray-900 bg-gray-200 dark:bg-gray-600 dark:text-white"
+                  }`}
+                >
+                  <MdPointOfSale className="w-6 h-6 custom--svg" />
+                  <span className="ml-3 flex-1 whitespace-nowrap">Sell</span>
+                </Link>
+                <Link
+                  to="/sale"
+                  className={`custom--link rounded-lg flex items-center p-2 ${
+                    activeLink === "/sale" &&
+                    "text-gray-900 bg-gray-200 dark:bg-gray-600 dark:text-white"
+                  }`}
+                >
+                  <MdInsertChart className="w-6 h-6 custom--svg" />
+                  <span className="ml-3 flex-1 whitespace-nowrap">Sales</span>
+                </Link>
                 <Link
                   to="/product"
                   className={`custom--link rounded-lg flex items-center p-2 ${
