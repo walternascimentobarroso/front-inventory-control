@@ -11,6 +11,7 @@ import ProfilePage from "./pages/Profile/ProfilePage";
 import ProductPage from "./pages/Product/ProductPage";
 import CategoryPage from "./pages/Category/CategoryPage";
 import SalePage from "./pages/Sale/SalePage";
+import SellPage from "./pages/Sell/SellPage";
 
 const Private = ({ Item }: any) => {
   const { signed } = useAuth();
@@ -31,6 +32,11 @@ const routes: any[] = [
     path: "/profile",
     exact: true,
     element: <Private Item={ProfilePage} />,
+  },
+  {
+    path: "/sell",
+    exact: true,
+    element: <Private Item={SellPage} />,
   },
   {
     path: "/sale",
