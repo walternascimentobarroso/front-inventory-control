@@ -10,7 +10,7 @@ interface SelectProps {
   name: string;
   label: string;
   options: SelectOption[];
-  defaultValue: string;
+  defaultValue?: string;
   onSelect: any;
 }
 
@@ -18,7 +18,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   name,
   label,
   options,
-  defaultValue,
+  defaultValue = "",
   onSelect,
 }) => {
   const [selectedValue, setSelectedValue] = useState("");

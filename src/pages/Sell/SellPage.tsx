@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import Template from "../../components/Template";
 import Breadcrumb from "../../components/Breadcrumb";
 import Table from "./Table";
+import CustomSelect from "../../components/CustomSelect";
 
 export default () => {
   const initData = {
@@ -32,6 +33,28 @@ export default () => {
       quantity: "22'",
       tax: "5'",
       total: "230",
+    },
+    {
+      description: "Apple MacBook Pro 17'",
+      value: "120'",
+      quantity: "22'",
+      tax: "5'",
+      total: "230",
+    },
+  ];
+
+  const options = [
+    {
+      label: "Money",
+      value: "1",
+    },
+    {
+      label: "Paypal",
+      value: "2",
+    },
+    {
+      label: "Card",
+      value: "3",
     },
   ];
 
@@ -94,14 +117,24 @@ export default () => {
                 />
               </div>
             </div>
-            <div className="px-4">
+            <div className="px-4 mt-5">
               <Button customClass="w-full">Add Product</Button>
             </div>
           </div>
           <div className="">
             <Table data={data} />
-            <div className="mt-4 text-right">
-              <h4 className="text-lg font-bold">Total: R$ 94,45</h4>
+            <div className="mt-4">
+              <CustomSelect
+                label={"Form of payment"}
+                name={"payment"}
+                options={options}
+                onSelect={handleChange}
+              />
+              <div className="flex justify-between mb-2 mr-2">
+                <h4 className="text-lg font-bold">Total:</h4>
+                <h4 className="text-lg font-bold">R$ 94,45 </h4>
+              </div>
+              <Button customClass="w-full custom--btn-danger">Finish</Button>
             </div>
           </div>
         </div>
