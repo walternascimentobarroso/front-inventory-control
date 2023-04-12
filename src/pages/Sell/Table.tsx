@@ -1,11 +1,10 @@
-const Table = ({ data }: any) => {
+import Button from "../../components/Button";
+import ButtonDelete from "./ButtonDelete";
+
+const Table = ({ data, deleteRow }: any) => {
   const tHeads = ["Description", "Value", "QTD", "Tax", "Total", "Action"];
-  console.log(data);
   return (
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      {/* <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-        List of Users
-      </caption> */}
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-500 dark:text-gray-400">
         <tr>
           {tHeads.map((head: any, index: any) => (
@@ -27,12 +26,11 @@ const Table = ({ data }: any) => {
             <td className="px-6 py-4">{record.tax}</td>
             <td className="px-6 py-4">{record.total}</td>
             <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Remove
-              </a>
+              <ButtonDelete
+                id={index}
+                description={record.description}
+                deleteAction={deleteRow}
+              />
             </td>
           </tr>
         ))}

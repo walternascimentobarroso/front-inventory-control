@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../components/Input";
 import Title from "../../components/Title";
 import Button from "../../components/Button";
@@ -13,15 +13,14 @@ export default () => {
     category: "",
     barcode: "",
     value: "",
+    quantity: 1,
     tax: "",
   };
   const [formState, setFormState] = useState(initData);
-  const handleChange = (e: any) =>
-    setFormState({ ...formState, [e.target.name]: e.target.value });
-
-  const data = [
+  const [data, setData]: any = useState([
     {
-      description: "Apple MacBook Pro 17'",
+      description:
+        "Apple MacBook Apple MacBook Apple MacBook Apple MacBook  Pro 17'",
       value: "10'",
       quantity: "2'",
       tax: "5'",
@@ -29,19 +28,26 @@ export default () => {
     },
     {
       description: "Apple MacBook Pro 17'",
-      value: "120'",
-      quantity: "22'",
+      value: "10'",
+      quantity: "2'",
       tax: "5'",
-      total: "230",
+      total: "20",
     },
-    {
-      description: "Apple MacBook Pro 17'",
-      value: "120'",
-      quantity: "22'",
-      tax: "5'",
-      total: "230",
-    },
-  ];
+  ]);
+
+  const handleChange = (e: any) =>
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+
+  const handleDeleteRow = (targetIndex: any) => {
+    // console.log(targetIndex);
+    setData(data.filter((_: any, index: any) => index !== targetIndex));
+    // removeItem(targetIndex);
+  };
+
+  const handleSubmit = () => {
+    console.log(formState);
+    setData([...data, formState]);
+  };
 
   const options = [
     {
@@ -108,6 +114,15 @@ export default () => {
                 />
 
                 <Input
+                  label={"Quantity"}
+                  type={"number"}
+                  placeholder={"quantity"}
+                  name={"quantity"}
+                  value={formState?.quantity || ""}
+                  onChange={handleChange}
+                />
+
+                <Input
                   label={"Tax"}
                   type={"number"}
                   placeholder={"Tax"}
@@ -118,11 +133,15 @@ export default () => {
               </div>
             </div>
             <div className="px-4 mt-5">
-              <Button customClass="w-full">Add Product</Button>
+              <Button customClass="w-full" onClick={handleSubmit}>
+                Add Product
+              </Button>
             </div>
           </div>
-          <div className="">
-            <Table data={data} />
+          <div className="w-1/2">
+            <div className="h-72 overflow-x-auto">
+              <Table data={data} deleteRow={handleDeleteRow} />
+            </div>
             <div className="mt-4">
               <CustomSelect
                 label={"Form of payment"}
