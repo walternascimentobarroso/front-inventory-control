@@ -17,37 +17,34 @@ export default () => {
     tax: "",
   };
   const [formState, setFormState] = useState(initData);
-  const [data, setData]: any = useState([
-    {
-      description:
-        "Apple MacBook Apple MacBook Apple MacBook Apple MacBook  Pro 17'",
-      value: "10'",
-      quantity: "2'",
-      tax: "5'",
-      total: "20",
-    },
-    {
-      description: "Apple MacBook Pro 17'",
-      value: "10'",
-      quantity: "2'",
-      tax: "5'",
-      total: "20",
-    },
-  ]);
+  const [total, setTotal]: any = useState(0);
+  const [data, setData]: any = useState([]);
+
+  useEffect(() => {
+    setTotal(2);
+    let sumTotal = 0;
+    data.forEach((obj: any) => {
+      const value = obj.value;
+      const quantity = obj.quantity;
+      const newTotal = Number(
+        (value * quantity * (1 + obj.tax / 100)).toFixed(2)
+      );
+
+      if (!isNaN(newTotal)) {
+        sumTotal += newTotal;
+      }
+    });
+
+    setTotal(sumTotal);
+  }, [data]);
 
   const handleChange = (e: any) =>
     setFormState({ ...formState, [e.target.name]: e.target.value });
 
-  const handleDeleteRow = (targetIndex: any) => {
-    // console.log(targetIndex);
+  const handleDeleteRow = (targetIndex: any) =>
     setData(data.filter((_: any, index: any) => index !== targetIndex));
-    // removeItem(targetIndex);
-  };
 
-  const handleSubmit = () => {
-    console.log(formState);
-    setData([...data, formState]);
-  };
+  const handleSubmit = () => setData([...data, formState]);
 
   const options = [
     {
@@ -73,7 +70,7 @@ export default () => {
             href: "/home",
           },
           {
-            label: "Profile",
+            label: "Sell",
             href: "",
           },
         ]}
@@ -151,7 +148,7 @@ export default () => {
               />
               <div className="flex justify-between mb-2 mr-2">
                 <h4 className="text-lg font-bold">Total:</h4>
-                <h4 className="text-lg font-bold">R$ 94,45 </h4>
+                <h4 className="text-lg font-bold">R$ {total} </h4>
               </div>
               <Button customClass="w-full custom--btn-danger">Finish</Button>
             </div>

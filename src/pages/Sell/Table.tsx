@@ -24,7 +24,13 @@ const Table = ({ data, deleteRow }: any) => {
             <td className="px-6 py-4">{record.value} </td>
             <td className="px-6 py-4">{record.quantity}</td>
             <td className="px-6 py-4">{record.tax}</td>
-            <td className="px-6 py-4">{record.total}</td>
+            <td className="px-6 py-4">
+              {(
+                record.value *
+                record.quantity *
+                (1 + record.tax / 100)
+              ).toFixed(2)}
+            </td>
             <td className="px-6 py-4">
               <ButtonDelete
                 id={index}

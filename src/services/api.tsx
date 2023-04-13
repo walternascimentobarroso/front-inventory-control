@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ROUTE = "http://localhost";
+const ROUTE = "http://ec2-16-170-133-178.eu-north-1.compute.amazonaws.com";
 
 // Função para fazer requisição GET
 export const get = async (url: string) => {

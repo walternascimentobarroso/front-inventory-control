@@ -1,15 +1,10 @@
-import { useState } from "react";
-import { MdGroup, MdGroupAdd, MdGroupOff, MdGroupRemove } from "react-icons/md";
-import Modal from "../../components/Modal";
+import Title from "../../components/Title";
 import Template from "../../components/Template";
 import Breadcrumb from "../../components/Breadcrumb";
 import StatisticCard from "../../components/StatisticCard";
-import Title from "../../components/Title";
+import { MdGroup, MdGroupAdd, MdGroupOff, MdGroupRemove } from "react-icons/md";
 
 export default () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModalClose = () => setIsModalOpen(!isModalOpen);
-
   return (
     <Template>
       <Breadcrumb
@@ -65,20 +60,11 @@ export default () => {
         <div className="mb-4 flex items-center justify-between">
           <div>
             <h3 className="text-gray-900 dark:text-gray-200 text-xl font-bold mb-2">
-              Blank page
+              Welcome
             </h3>
             <span className="text-base font-normal text-gray-500">
-              This is a blank page!!
-              <button onClick={toggleModalClose}>Open</button>
+              welcome to the cash register system!!
             </span>
-
-            <Modal
-              isOpen={isModalOpen}
-              onClose={toggleModalClose}
-              title="Exemplo de Modal"
-            >
-              <span>lol</span>
-            </Modal>
           </div>
         </div>
       </div>
