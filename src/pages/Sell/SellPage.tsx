@@ -6,6 +6,7 @@ import Template from "../../components/Template";
 import Breadcrumb from "../../components/Breadcrumb";
 import Table from "./Table";
 import CustomSelect from "../../components/CustomSelect";
+import { get, post } from "../../services/api";
 
 export default () => {
   const initData = {
@@ -45,6 +46,27 @@ export default () => {
     setData(data.filter((_: any, index: any) => index !== targetIndex));
 
   const handleSubmit = () => setData([...data, formState]);
+
+  const loadProduct = async (e: any) => {
+    const barcode = e.target.value;
+    const response = await get(`product/barcode/${barcode}`);
+    response.quantity = 1;
+    setFormState(response);
+  };
+
+  const create = async () => {
+    try {
+      const sale = {
+        items: data,
+        total: total,
+      };
+      console.log(sale);
+      await post(`sale`, sale);
+      console.log("Item criado com sucesso!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const options = [
     {
@@ -92,13 +114,16 @@ export default () => {
                   name={"barcode"}
                   value={formState?.barcode || ""}
                   onChange={handleChange}
+                  onBlur={loadProduct}
                 />
+
                 <Input
                   label={"Description"}
                   placeholder={"Description"}
                   name={"description"}
                   value={formState?.description || ""}
                   onChange={handleChange}
+                  readOnly={true}
                 />
 
                 <Input
@@ -108,6 +133,7 @@ export default () => {
                   name={"value"}
                   value={formState?.value || ""}
                   onChange={handleChange}
+                  readOnly={true}
                 />
 
                 <Input
@@ -120,12 +146,13 @@ export default () => {
                 />
 
                 <Input
-                  label={"Tax"}
+                  label={"Tax %"}
                   type={"number"}
                   placeholder={"Tax"}
                   name={"tax"}
                   value={formState?.tax || ""}
                   onChange={handleChange}
+                  readOnly={true}
                 />
               </div>
             </div>
@@ -150,7 +177,9 @@ export default () => {
                 <h4 className="text-lg font-bold">Total:</h4>
                 <h4 className="text-lg font-bold">R$ {total} </h4>
               </div>
-              <Button customClass="w-full custom--btn-danger">Finish</Button>
+              <Button onClick={create} customClass="w-full custom--btn-danger">
+                Finish
+              </Button>
             </div>
           </div>
         </div>

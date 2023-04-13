@@ -127,16 +127,16 @@ export default () => {
               />
             </div>
 
-            <ButtonNew
+            {/* <ButtonNew
               onActionSubmit={handleSubmit}
               cleanEditData={() => setRowToEdit({})}
-            />
+            /> */}
           </div>
           <Table
             data={data}
             deleteRow={handleDeleteRow}
             onActionSubmit={handleSubmit}
-            editRow={handleEditRow}
+            // editRow={handleEditRow}
             defaultRowValue={rowToEdit}
           />
         </div>

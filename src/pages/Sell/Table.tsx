@@ -2,7 +2,7 @@ import Button from "../../components/Button";
 import ButtonDelete from "./ButtonDelete";
 
 const Table = ({ data, deleteRow }: any) => {
-  const tHeads = ["Description", "Value", "QTD", "Tax", "Total", "Action"];
+  const tHeads = ["Description", "Value", "QTD", "Tax %", "Total", "Action"];
   return (
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-500 dark:text-gray-400">

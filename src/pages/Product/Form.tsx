@@ -102,7 +102,7 @@ export default ({ onActionSubmit, defaultValue, closeModal }: any) => {
         />
 
         <Input
-          label={"Tax"}
+          label={"Tax %"}
           type={"number"}
           placeholder={"Tax"}
           name={"tax"}

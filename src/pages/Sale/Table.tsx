@@ -30,18 +30,19 @@ export default ({
             key={index}
           >
             <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {record.items}
+              {/* {record.items?.map((obj: any) => obj.description).join(", ")} */}
+              {"Items"}
             </td>
             <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {record.total}
             </td>
             <td className="px-6 py-4">
-              <ButtonEdit
+              {/* <ButtonEdit
                 id={record.id}
                 onActionSubmit={onActionSubmit}
                 editRow={editRow}
                 defaultValue={defaultRowValue}
-              />
+              /> */}
 
               <ButtonDelete
                 id={record.id}
